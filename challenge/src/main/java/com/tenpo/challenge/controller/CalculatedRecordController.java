@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tenpo.challenge.model.CalculatedRecord;
+import com.tenpo.challenge.model.ThirdPartyPercentage;
 import com.tenpo.challenge.service.CalculatedRecordServiceImpl;
+import com.tenpo.challenge.service.ThirdPartyPercentageServiceImpl;
 
 @RestController
 @RequestMapping("/api")
@@ -23,6 +25,9 @@ public class CalculatedRecordController {
 
 	@Autowired
 	private CalculatedRecordServiceImpl calculatedRecordServiceImpl;
+	
+	@Autowired
+	private ThirdPartyPercentageServiceImpl thirdPartyPercentageServiceImpl;
 	
 	
 	@GetMapping("/registros")
@@ -32,7 +37,10 @@ public class CalculatedRecordController {
 	
 	@PostMapping("/registro")
 	public CalculatedRecord createOrUpdateRecord(@RequestBody CalculatedRecord record) {
-		return calculatedRecordServiceImpl.createOrUpdateRecord(record);
+		
+		ThirdPartyPercentage thirdPartyPercentage = thirdPartyPercentageServiceImpl.getThirdPartyPercentage();
+		
+		return calculatedRecordServiceImpl.createOrUpdateRecord(record,thirdPartyPercentage);
 	}
 	
 	@DeleteMapping("/registro/{id}")
@@ -44,4 +52,15 @@ public class CalculatedRecordController {
 	public Optional<CalculatedRecord> findById(@PathVariable("id") Long id){
 		return this.calculatedRecordServiceImpl.findById(id);
 	}
+	
+	//Su utilidad es solo como mock al servicio externo
+	@GetMapping("/percentage")
+	public ThirdPartyPercentage getPercentage(){
+		
+		ThirdPartyPercentage thirdPartyObject = new ThirdPartyPercentage();
+		thirdPartyObject.setPorcentage(50); //esto  se puede configurar como constante
+		
+		return thirdPartyObject;
+	}
+	
 }

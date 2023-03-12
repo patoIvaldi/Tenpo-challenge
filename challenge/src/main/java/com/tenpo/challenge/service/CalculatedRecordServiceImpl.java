@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.tenpo.challenge.model.CalculatedRecord;
+import com.tenpo.challenge.model.ThirdPartyPercentage;
 import com.tenpo.challenge.repository.CalculatedRecordRepository;
 
 @Service
@@ -28,12 +29,13 @@ public class CalculatedRecordServiceImpl {
 	/**
 	 * Metodo que realiza el calculo y la persistencia en la BD.
 	 * @param record
+	 * @param thirdPartyPercentage 
 	 * @return
 	 */
-	public CalculatedRecord createOrUpdateRecord(CalculatedRecord record) {
+	public CalculatedRecord createOrUpdateRecord(CalculatedRecord record, ThirdPartyPercentage thirdPartyPercentage) {
 		
 		//invocar al servicio externo para recuperar el %
-		int porcentaje = 10;
+		int porcentaje = thirdPartyPercentage!=null?thirdPartyPercentage.getPorcentage():0;
 		
 		record.setResult(record.getValue_1() + record.getValue_2() +
 				calcularPorcentaje(record.getValue_1() + record.getValue_2(), porcentaje));
