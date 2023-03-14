@@ -58,9 +58,10 @@ public class CalculatedRecordController {
 	public ThirdPartyPercentage getPercentage(){
 		
 		ThirdPartyPercentage thirdPartyObject = new ThirdPartyPercentage();
-		thirdPartyObject.setPorcentage(50); //esto  se puede configurar como constante
+		thirdPartyObject.setPorcentage(10);
 		
 		return thirdPartyObject;
 	}
+	
 	
 }

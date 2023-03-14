@@ -15,6 +15,11 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * Entidad principal del modelo
+ * @author Pato
+ *
+ */
 @Entity
 public class CalculatedRecord implements Serializable{
 
