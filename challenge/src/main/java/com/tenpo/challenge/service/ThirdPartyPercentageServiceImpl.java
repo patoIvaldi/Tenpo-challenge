@@ -25,8 +25,14 @@ public class ThirdPartyPercentageServiceImpl {
 	 */
 	public ThirdPartyPercentage getThirdPartyPercentage() {
 		
-		ResponseEntity<ThirdPartyPercentage> resp = restTemplate.getForEntity(
-				"http://localhost:8080/api/percentage", ThirdPartyPercentage.class);
+		ResponseEntity<ThirdPartyPercentage> resp = new ResponseEntity<ThirdPartyPercentage>(HttpStatus.SERVICE_UNAVAILABLE);
+		
+		try {
+			resp = restTemplate.getForEntity(
+					"http://localhost:8080/api/percentage", ThirdPartyPercentage.class);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return resp.getStatusCode() == HttpStatus.OK? resp.getBody():null;
 	}

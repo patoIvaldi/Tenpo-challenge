@@ -35,7 +35,7 @@ public class CalculatedRecord implements Serializable{
 	
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar creationDttm; //o instant LocalDateTime
+	private Calendar creationDttm;
 	
 	@Column
 	@NotNull
