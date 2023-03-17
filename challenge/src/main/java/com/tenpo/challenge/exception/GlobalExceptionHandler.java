@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.support.MethodArgumentNotValidException;
 import org.springframework.transaction.CannotCreateTransactionException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -95,5 +96,18 @@ public class GlobalExceptionHandler {
         response.setData(ex.getMessage());
         
         return new ResponseEntity<>(response, HttpStatus.METHOD_NOT_ALLOWED);
+    }
+    
+    @ExceptionHandler(MissingPathVariableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ResponseError> handleMissingPathVariableException(MissingPathVariableException ex) {
+    	
+        ResponseError response = new ResponseError();
+        response.setTimestamp(Timestamp.from(Instant.now()));
+        response.setStatus("Error en los parametros.");
+        response.setRespondeCode(HttpStatus.BAD_REQUEST.value());
+        response.setData(ex.getMessage());
+        
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }
